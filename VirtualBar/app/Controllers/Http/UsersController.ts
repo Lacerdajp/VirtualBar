@@ -8,8 +8,16 @@ export default class UsersController {
   public async store({ request, response }: HttpContextContract) {
     const email = request.input('email')
     const password = request.input('password')
+
     await User.create({ email: email, password: password })
     response.status(201)
     response.redirect().toRoute('session.create')
+  }
+  public async destroy({ params }: HttpContextContract) {
+    const val = await User.findOrFail(params.id)
+    val.delete()
+    return {
+      message: 'DELETE',
+    }
   }
 }

@@ -1,4 +1,4 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 /*
 |--------------------------------------------------------------------------
 | Routes
@@ -20,9 +20,11 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 */
 import Database from '@ioc:Adonis/Lucid/Database'
 import Route from '@ioc:Adonis/Core/Route'
-import User from '../app/Models/User';
+import User from '../app/Models/User'
+import UsersController from '../app/Controllers/Http/UsersController';
 Route.get('/cadastro', 'UsersController.create').as('user.create')
-Route.post('/cadastro', 'UsersCotroller.store').as('user.store')
+Route.post('/cadastro', 'UsersController.store').as('user.store')
+Route.delete('/cadastro/:id', 'UsersController.destroy').as('user.destroy')
 Route.get('/login', 'SessionsController.create').as('session.create')
 Route.post('/login', 'SessionsController.store').as('session.store')
 
