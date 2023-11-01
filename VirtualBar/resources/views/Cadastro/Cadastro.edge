@@ -4,31 +4,45 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AdonisJS - A fully featured web framework for Node.js</title>
-  @entryPointStyles('app')
-  @entryPointScripts('app')
+  @entryPointStyles('cadastro')
+  @entryPointScripts('cadastro')
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </head>
-<body>
-  <main class="form-signin w-100 m-auto">
 
-    <form action="{{route('user.store')}}" method="POST">
-      <img src="/imgs/VirtualBar.png" alt="" width="200" height="200"/>
-      <h1 class="h3 mb-3 fw-normal">Crie seu Usuario</h1>
+<body class="bg-body-tertiary">
+  <div class="container">
+    <main>
+      <div class="py-5 text-center" >
+        <img src="/imgs/VirtualBar.png" alt="" width="200" height="200"/>
+        <h1 class="h3 mb-3 fw-normal" >Qual Tipo de Usuario você é ?</h1>
+        <p><a class="link-opacity-100" href="{{route('session.create')}}">Voltar Para a Tela de Login</a></p>
 
-      <div class="form-floating">
-        <input name="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-        <label for="floatingInput">Email address</label>
-      </div>
-      <div class="form-floating">
-        <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
-        <label for="floatingPassword">Password</label>
-      </div>
+        <ul class="nav nav-tabs nav-justified" role="tablist" id="nav">
+          <li class="nav-item"  role="presentation">
+            <a class="nav-link active" id='nav-cliente' href="{{route('user.cliente.create')}}">Cliente</a>
+          </li>
+          <li class="nav-item"  role="presentation">
+            <a class="nav-link" id='nav-estabelecimento'  href="{{route('user.estabelecimento.create')}}">Estabelecimento</a>
+          </li>
 
-      <div class="text-start my-3">
-        <p><a class="link-opacity-100" href="{{route('session.create')}}">Voltar a tela de Login</a></p>
+        </ul>
       </div>
-      <button class="btn btn-primary w-100 py-2" type="submit">CRIE</button>
-      <p class="mt-5 mb-3 text-body-secondary">© 2023</p>
-    </form>
-  </main>
+      <div class="tab-content" >
+        @!section('body')
+      {{--  <div  id="cliente" class="container tab-pane active"><br>
+        <h1>fefef</h1>
+
+        @include('cadastro/cliente')
+      </div>
+      <div id="estabelecimento" class="container tab-pane fade"><br>
+
+        @include('cadastro/estabelecimento')
+      </div>  --}}
+      </div>
+    </main>
+  </div>
 </body>
 </html>

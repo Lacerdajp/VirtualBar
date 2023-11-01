@@ -1,17 +1,20 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
-import User from './User'
 
-export default class UserClient extends User {
+export default class Cliente extends BaseModel {
   @column({ isPrimary: true })
-  public id_user: number
+  public id: number
+  // @column()
+  // public id_usuario: number
   @column()
   public primeiro_nome: string
   @column()
   public sobrenome: string
   @column()
-  public cpf:string
+  public data_nascimento:DateTime
   @column()
-  public img_Logo:string
+  public genero:string
+  @column()
+  public img:string
 
 }

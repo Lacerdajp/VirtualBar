@@ -7,6 +7,22 @@
       "js": [
         "http://localhost:8080/assets/app.js"
       ]
+    },
+    "login": {
+      "css": [
+        "http://localhost:8080/assets/login.css"
+      ],
+      "js": [
+        "http://localhost:8080/assets/login.js"
+      ]
+    },
+    "cadastro": {
+      "css": [
+        "http://localhost:8080/assets/cadastro.css"
+      ],
+      "js": [
+        "http://localhost:8080/assets/cadastro.js"
+      ]
     }
   }
 }

@@ -46,7 +46,8 @@ Encore.setPublicPath('/assets')
 |
 */
 Encore.addEntry('app', './resources/js/app.js')
-
+Encore.addEntry('login', './resources/js/cadastro/login.js')
+Encore.addEntry('cadastro', './resources/js/cadastro/cadastro.js')
 /*
 |--------------------------------------------------------------------------
 | Copy assets

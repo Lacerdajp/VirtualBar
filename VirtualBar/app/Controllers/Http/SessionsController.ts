@@ -5,16 +5,21 @@ import { resetRetrieveHandlers } from 'source-map-support'
 
 export default class SessionsController {
   public async create({ view }: HttpContextContract) {
-    return view.render('Cadastro/login')
+    return view.render('cadastro/login')
   }
   public async store({ auth, request, response }: HttpContextContract) {
     const email = request.input('email')
     const password = request.input('password')
     try {
       await auth.use('web').attempt(email, password)
-      response.redirect().toRoute('home')
+      return response.redirect().toRoute('home')
     } catch {
       return response.badRequest('invalid')
     }
   }
+  public async delete({ auth, response }: HttpContextContract) {
+    await auth.use('web').logout()
+    return response.redirect().toRoute('session.create')
+  }
+
 }

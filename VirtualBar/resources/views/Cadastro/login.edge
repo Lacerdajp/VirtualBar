@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AdonisJS - A fully featured web framework for Node.js</title>
-  @entryPointStyles('app')
-  @entryPointScripts('app')
+  {{--  <link rel="stylesheet" type="text/css" href="../../css/login.css" media="screen" />  --}}
+  @entryPointStyles('login')
+  @entryPointScripts('login')
 </head>
 <body>
   <main class="form-signin w-100 m-auto">
@@ -23,7 +24,7 @@
         <label for="floatingPassword">Password</label>
       </div>
       <div class="text-start my-3">
-        <p><a class="link-opacity-100" href="{{route('user.create')}}">Criar Usuario</a></p>
+        <p><a class="link-opacity-100" href="{{route('user.cliente.create')}}">Criar Usuario</a></p>
       </div>
       <div class="form-check text-start my-3">
         <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
