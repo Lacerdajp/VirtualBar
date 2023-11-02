@@ -6,8 +6,8 @@ export default class extends BaseSchema {
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.integer('id').primary().unsigned().references('id').inTable('users').onDelete('CASCADE');
-      table.string('nome_estabelecimento').notNullable();
-      table.string('cnpj').notNullable();
+      table.string('nome_estabelecimento').notNullable().unique;
+      table.string('cnpj').notNullable().unique();
       table.json('tipo').defaultTo([]);
       table.string('img');
       /**
