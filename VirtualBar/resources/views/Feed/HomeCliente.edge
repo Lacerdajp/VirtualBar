@@ -11,6 +11,15 @@
 
   <main>
     <form action="{{route('session.delete')}}" method="Get">
+      <h1>Ola, {{user.nome}}! Bem vindo </h1>
+
+      @if (estabelecimentos.length>0)
+      @each(e in estabelecimentos)
+      <p><a class="link-opacity-100" href="{{ route('estabelecimento.profile', { id: e.id }) }}">{{ e.nome_estabelecimento }}</a></p>
+      @end
+    @else
+      <p>Nenhum valor encontrado no banco de dados.</p>
+    @end
     <button class="btn btn-danger w-100 py-2" type="submit" >Sair</button>
     </form>
   </main>

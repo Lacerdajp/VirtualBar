@@ -3,10 +3,23 @@ import Cliente from '../../Models/Cliente';
 import User from '../../Models/User';
 import UsersController from './UsersController';
 import UsersServices from '../../Services/UsersServices';
+import ClienteServices from 'App/Services/ClienteServices';
+import EstabelecimentosServices from '../../Services/EstabelecimentosServices';
 
 export default class ClientesController {
-  public async create({ view }: HttpContextContract) {
+  public async createCadastro({ view }: HttpContextContract) {
     return view.render('Cadastro/Cliente')
+  }
+  public async createHome({ view,auth}: HttpContextContract) {
+    await auth.check()
+    const userEmail = auth.user?.email;
+    const id=auth.user?.id;
+    const user= await new ClienteServices().recuperarInfos(userEmail,id)
+    const estabelecimentos=await new EstabelecimentosServices().showAll()
+
+    return await view.render('Feed/HomeCliente',{user,estabelecimentos})
+
+
   }
   public async store({ request, response }: HttpContextContract) {
     const data = request.only(['primeiro_nome', 'sobrenome','email', 'password','genero',  'data_nascimento','img']);

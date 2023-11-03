@@ -23,29 +23,32 @@ import Route from '@ioc:Adonis/Core/Route'
 import User from '../app/Models/User'
 import UsersController from '../app/Controllers/Http/UsersController';
 import { Router } from '@adonisjs/core/build/standalone';
+import View from '@ioc:Adonis/Core/View';
 Route.group(()=>{
   Route.get('/', 'UsersController.create').as('create')//chamar page cadastro
   // Route.post('/', 'UsersController.store').as('user.store')//cria um user
   // Route.delete('/:id', 'UsersController.destroy').as('user.destroy')//deleta um user
-  Route.group(()=>{
-    Route.post('/','ClientesController.store').as('store')
-    Route.get('/new', 'ClientesController.create').as('create')
-  }).prefix('/clientes').as('cliente')
-  Route.group(()=>{
-    Route.post('/','EstabelecimentosController.store').as('store')
-    Route.get('/new', 'EstabelecimentosController.create').as('create')
-  }).prefix('/estabelecimentos').as('estabelecimento')
 }).prefix('/users').as('user')
 
+Route.group(()=>{
+  Route.post('/','ClientesController.store').as('store')
+  Route.get('/new', 'ClientesController.createCadastro').as('createCadastro')
+  Route.get('/home','ClientesController.createHome').as('createHome')
+}).prefix('/clientes').as('cliente')
+Route.group(()=>{
+  Route.post('/','EstabelecimentosController.store').as('store')
+  Route.get('/:id/profile','EstabelecimentosController.createProfile').as('profile')
+  Route.get('/:id','EstabelecimentosController.show').as('show')
+  Route.get('/new', 'EstabelecimentosController.createCadastro').as('createCadastro')
+  Route.get('/home','estabelecimentosController.createHome' ).as('createHome')
+}).prefix('/estabelecimentos').as('estabelecimento')
 
 Route.get('/login', 'SessionsController.create').as('session.create')
 Route.post('/login', 'SessionsController.store').as('session.store')
 Route.get('/logout', 'SessionsController.delete').as('session.delete')
 
 
-Route.get('/home', async ({ view }: HttpContextContract) => {
-  return view.render('Feed/Home')
-}).as('home')
+
 Route.get('/', async ({ response }) => {
   response.redirect().toRoute('session.create')
 })

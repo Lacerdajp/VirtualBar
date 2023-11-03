@@ -2,6 +2,8 @@ import { Response } from '@adonisjs/core/build/standalone'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import HttpExceptionHandler from '@ioc:Adonis/Core/HttpExceptionHandler'
 import { resetRetrieveHandlers } from 'source-map-support'
+import User from '../../Models/User';
+import UsersServices from '../../Services/UsersServices';
 
 export default class SessionsController {
   public async create({ view }: HttpContextContract) {
@@ -12,7 +14,12 @@ export default class SessionsController {
     const password = request.input('password')
     try {
       await auth.use('web').attempt(email, password)
-      return response.redirect().toRoute('home')
+      const user= auth.user?.isEstabelecimento
+      if(user==true )
+        return response.redirect().toRoute('estabelecimento.createHome')
+      else{
+        return response.redirect().toRoute('cliente.createHome')
+      }
     } catch {
       return response.badRequest('invalid')
     }
