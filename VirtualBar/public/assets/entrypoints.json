@@ -23,6 +23,14 @@
       "js": [
         "http://localhost:8080/assets/cadastro.js"
       ]
+    },
+    "profile": {
+      "css": [
+        "http://localhost:8080/assets/profile.css"
+      ],
+      "js": [
+        "http://localhost:8080/assets/profile.js"
+      ]
     }
   }
 }

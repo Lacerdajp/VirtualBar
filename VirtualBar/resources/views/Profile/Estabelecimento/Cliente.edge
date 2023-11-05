@@ -4,74 +4,62 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AdonisJS - A fully featured web framework for Node.js</title>
-  @entryPointStyles('app')
-  @entryPointScripts('app')
+  @entryPointStyles('profile')
+  @entryPointScripts('profile')
 </head>
 <body>
-  <section class="h-100 gradient-custom-2">
-    <div class="container py-5 h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col col-lg-9 col-xl-7">
-          <div class="card">
-            <div class="rounded-top text-white d-flex flex-row" style="background-color: #000; height:200px;">
-              <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
-                <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
-                  style="z-index: 1;" href="">
-                  Edit profile
-                </button>
-              </div>
-              <div class="ms-3" style="margin-top: 130px;">
-                <h5>Andy Horwitz</h5>
-                <p>New York</p>
-              </div>
-            </div>
-            <div class="p-4 text-black" style="background-color: #f8f9fa;">
-              <div class="d-flex justify-content-end text-center py-1">
-                <div>
-                  <p class="mb-1 h5">253</p>
-                  <p class="small text-muted mb-0">Photos</p>
-                </div>
-                <div class="px-3">
-                  <p class="mb-1 h5">1026</p>
-                  <p class="small text-muted mb-0">Followers</p>
-                </div>
-                <div>
-                  <p class="mb-1 h5">478</p>
-                  <p class="small text-muted mb-0">Following</p>
-                </div>
-              </div>
-            </div>
-            <div class="card-body p-4 text-black">
-              <div class="mb-5">
-                <p class="lead fw-normal mb-1">About</p>
-                <div class="p-4" style="background-color: #f8f9fa;">
-                  <p class="font-italic mb-1">Web Developer</p>
-                  <p class="font-italic mb-1">Lives in New York</p>
-                  <p class="font-italic mb-0">Photographer</p>
-                </div>
-              </div>
-              <div class="d-flex justify-content-between align-items-center mb-4">
-                <p class="lead fw-normal mb-0">Recent photos</p>
-                <p class="mb-0"><a href="#!" class="text-muted">Show all</a></p>
-              </div>
-              <div class="row g-2">
-                <div class="col mb-2">
-                </div>
-                <div class="col mb-2">
-                </div>
-              </div>
-              <div class="row g-2">
-                <div class="col">
-                </div>
-                <div class="col">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
+  <div class="padding">
+    <div class="col-md-8">
+        <!-- Column -->
+        <div class="card">
+           {{--  <img class="card-img-top" src="https://i.imgur.com/K7A78We.jpg" alt="Card image cap">  --}}
+            <div class="card-body little-profile text-center">
+                {{--  <div class="pro-img"><img src="https://i.imgur.com/8RKXAIV.jpg" alt="user"></div>  --}}
+                <h3 class="m-b-0">{{user.nome_estabelecimento}}</h3>
+                <p>
+                @each(item in user.tipo)
+                  @if(item== user.tipo[user.tipo.length-1])
+                  {{item}}
+                  @else
+                    {{item}} |
+                    @end
+                @end
+              </p>
+                @if(assoc.text=="Livre")
+                <form action="{{route('associacao.store')}}" method="POST">
+                  <input type="hidden" name="id" value="{{user.id}}"/>
+                  <button class="m-t-10 waves-effect waves-dark btn btn-primary btn-md btn-rounded" data-abc="true" type="submit">Entrar</button>
+                </form>
+
+                @elseif(assoc.text=="Ocupado")
+                <form method="POST" 
+                action="{{ 
+                  route('associacao.destroy', {id:assoc.associacao.id}, { qs: { _method: 'DELETE' } }) 
+                }}"
+              >
+                  <button class="m-t-10 waves-effect waves-dark btn btn-primary btn-md btn-rounded" style=" background-color: red;" data-abc="true" type="submit">Sair</button>
+                  </form>
+                @else
+                {{--  <form action="{{route('associacao.store')}}" method="POST">
+                  <input type="hidden" name="id" value="{{user.id}}"/>
+                  <button class="m-t-10 waves-effect waves-dark btn btn-primary btn-md btn-rounded"  style=" background-color: orange;"data-abc="true" type="submit">Trocar para este Bar</button>
+                </form>  --}}
+                @end
+                <div class="row text-center m-t-20">
+                    <div class="col-lg-4 col-md-4 m-t-20">
+                        <h3 class="m-b-0 font-light">10434</h3><small>Articles</small>
+                    </div>
+                    <div class="col-lg-4 col-md-4 m-t-20">
+                        <h3 class="m-b-0 font-light">434K</h3><small>Followers</small>
+                    </div>
+                    <div class="col-lg-4 col-md-4 m-t-20">
+                        <h3 class="m-b-0 font-light">5454</h3><small>Following</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

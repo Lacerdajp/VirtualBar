@@ -37,12 +37,16 @@ Route.group(()=>{
 }).prefix('/clientes').as('cliente')
 Route.group(()=>{
   Route.post('/','EstabelecimentosController.store').as('store')
-  Route.get('/:id/profile','EstabelecimentosController.createProfile').as('profile')
-  Route.get('/:id','EstabelecimentosController.show').as('show')
   Route.get('/new', 'EstabelecimentosController.createCadastro').as('createCadastro')
   Route.get('/home','estabelecimentosController.createHome' ).as('createHome')
-}).prefix('/estabelecimentos').as('estabelecimento')
+  Route.get('/:id/profile','EstabelecimentosController.createProfile').as('profile')
+  Route.get('/:id','EstabelecimentosController.show').as('show')
 
+}).prefix('/estabelecimentos').as('estabelecimento')
+Route.group(()=>{
+  Route.post('/', 'AssociacaosController.store').as('store')
+  Route.delete('/:id', 'AssociacaosController.destroy').as('destroy')
+}).prefix('/associacoes').as('associacao')
 Route.get('/login', 'SessionsController.create').as('session.create')
 Route.post('/login', 'SessionsController.store').as('session.store')
 Route.get('/logout', 'SessionsController.delete').as('session.delete')

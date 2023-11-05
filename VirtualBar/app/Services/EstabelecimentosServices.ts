@@ -19,12 +19,17 @@ export default class EstabelecimentosServices {
       email:email,
       cnpj:estabelecimento.cnpj,
       nome:estabelecimento.nome_estabelecimento,
-      tipo:estabelecimento.tipo,
+      tipo:JSON.parse(estabelecimento.tipo),
       img:estabelecimento.img
 
     }
     return user}
 
+  }
+  public async show(id:number){
+    let estabelecimento = await Estabelecimento.findOrFail(id);
+    estabelecimento.tipo=JSON.parse(estabelecimento.tipo)
+    return estabelecimento;
   }
   public async showAll(){
     const all=await Estabelecimento.query()

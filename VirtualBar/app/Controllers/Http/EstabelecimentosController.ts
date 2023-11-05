@@ -4,6 +4,8 @@ import Estabelecimento from 'App/Models/Estabelecimento';
 import EstabelecimentosServices from 'App/Services/EstabelecimentosServices';
 import UsersServices from 'App/Services/UsersServices';
 import Route from '@ioc:Adonis/Core/Route';
+import Cliente from '../../Models/Cliente';
+import AssociacaoServices from 'App/Services/AssociacaoServices';
 
 export default class EstabelecimentosController {
   public async createCadastro({ view }: HttpContextContract) {
@@ -19,8 +21,8 @@ export default class EstabelecimentosController {
 
   }
   public async createProfile({ view,auth,params,response}: HttpContextContract) {
-
     await auth.check()
+    let assoc
     const userEmail = auth.user?.email;
     const id=auth.user?.id;
     if(id==params.id){
@@ -28,16 +30,25 @@ export default class EstabelecimentosController {
     }else if(auth.user?.isEstabelecimento){
 
     }else{
-      const user=await Route.makeUrl('estabelecimento.show',{id:params.id}))
-      console.log(user)
-      return await view.render('profile/estabelecimento/cliente',user.toJson())
+     const user= await new EstabelecimentosServices().show(params.id)
+     console.log(user)
+    if(id!=null){
+     assoc= await new AssociacaoServices().VerificarCliente(id,user.id)
+     }else{
+         assoc={
+          "text":"Livre"
+         }
+     }
+     console.log(assoc)
+      return await view.render('profile/estabelecimento/cliente',{user:user,assoc:assoc})
     }
     // const user=new EstabelecimentosServices().recuperarInfos(userEmail,id)
 
   }
   public async show({params}: HttpContextContract){
-      const estabelecimento  =await Estabelecimento.findOrFail(params.id)
-  }
+   return await new EstabelecimentosServices().show(params.id)
+
+    }
   public async store({ request, response }: HttpContextContract) {
     const data = request.only(['nome_estabelecimento', 'cnpj','email', 'password','tipo','img']);
     const userServices=new UsersServices()
