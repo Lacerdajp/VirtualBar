@@ -8,7 +8,7 @@
   @entryPointScripts('profile')
 </head>
 <body>
-
+  @include('../../Layouts/NavBar.edge')
   <div class="padding">
     <div class="col-md-8">
         <!-- Column -->
@@ -33,9 +33,9 @@
                 </form>
 
                 @elseif(assoc.text=="Ocupado")
-                <form method="POST" 
-                action="{{ 
-                  route('associacao.destroy', {id:assoc.associacao.id}, { qs: { _method: 'DELETE' } }) 
+                <form method="POST"
+                action="{{
+                  route('associacao.destroy', {id:assoc.associacao.id}, { qs: { _method: 'DELETE' } })
                 }}"
               >
                   <button class="m-t-10 waves-effect waves-dark btn btn-primary btn-md btn-rounded" style=" background-color: red;" data-abc="true" type="submit">Sair</button>
@@ -57,6 +57,19 @@
                         <h3 class="m-b-0 font-light">5454</h3><small>Following</small>
                     </div>
                 </div>
+                @if(assoc.text=="Ocupado")
+                <div class="tab-content profile-tabs-content">
+              <div class="tab-pane active" id="profile-overview" role="tabpanel">
+                <div class="post-editor">
+                    <textarea name="post-field" id="post-field" class="post-field" placeholder="Write Something Cool!"></textarea>
+                    <div class="d-flex">
+                        <button class="btn btn-success px-4 py-1">Post</button>
+                    </div>
+                </div>
+            </div>
+                </div>
+                @end
+
             </div>
         </div>
     </div>

@@ -5,6 +5,8 @@ import UsersController from './UsersController';
 import UsersServices from '../../Services/UsersServices';
 import ClienteServices from 'App/Services/ClienteServices';
 import EstabelecimentosServices from '../../Services/EstabelecimentosServices';
+import Associacao from 'App/Models/Associacao';
+import AssociacaoServices from 'App/Services/AssociacaoServices';
 
 export default class ClientesController {
   public async createCadastro({ view }: HttpContextContract) {
@@ -16,8 +18,9 @@ export default class ClientesController {
     const id=auth.user?.id;
     const user= await new ClienteServices().recuperarInfos(userEmail,id)
     const estabelecimentos=await new EstabelecimentosServices().showAll()
+    const assoc=await new AssociacaoServices().IsLogged(id)
 
-    return await view.render('Feed/HomeCliente',{user,estabelecimentos})
+    return await view.render('Feed/HomeCliente',{user,estabelecimentos,assoc})
 
 
   }

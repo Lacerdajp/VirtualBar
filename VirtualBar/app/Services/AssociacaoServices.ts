@@ -19,4 +19,19 @@ export default class AssociacaoServices {
       return value
     }
 
+    public async IsLogged(id_cli:number|undefined){
+      const assoc=await Associacao.findBy('id_cliente',id_cli)
+      let text:string
+      if(assoc==null){
+        text="Livre"
+    }else{
+      text="Ocupado"
+    }
+    const value={
+      "text":text,
+      "associacao":assoc
+    }
+    return value
+  }
+
 }
