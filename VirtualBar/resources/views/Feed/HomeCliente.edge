@@ -12,7 +12,6 @@
 
     @include('../Layouts/NavBar.edge')
     <main>
-    <form action="{{route('session.delete')}}" method="Get">
       <h1>Ola, {{user.nome}}! Bem vindo </h1>
 
       @if (estabelecimentos.length>0)
@@ -23,18 +22,21 @@
       <p>Nenhum valor encontrado no banco de dados.</p>
     @end
     @if(assoc.text=="Ocupado")
-                <div class="tab-content profile-tabs-content">
+    <form  action="{{route('post.store')}}" method="POST"id="postagem">
+        <div class="tab-content profile-tabs-content">
               <div class="tab-pane active" id="profile-overview" role="tabpanel">
                 <div class="post-editor">
-                    <textarea name="post-field" id="post-field" class="post-field" placeholder="Write Something Cool!"></textarea>
+                    <textarea name="post" id="post" class="post-field" placeholder="Write Something Cool!"></textarea>
                     <div class="d-flex">
-                        <button class="btn btn-success px-4 py-1">Post</button>
+                        <button class="btn btn-success px-4 py-1" type="submit">Post</button>
                     </div>
                 </div>
             </div>
                 </div>
-                @end
-    <button class="btn btn-danger w-100 py-2" type="submit" >Sair</button>
+    </form>
+    @end
+    <form action="{{route('session.delete')}}" method="Get">
+      <button class="btn btn-danger w-100 py-2" type="submit" >Sair</button>
     </form>
   </main>
 </body>

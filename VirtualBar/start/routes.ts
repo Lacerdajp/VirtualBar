@@ -47,6 +47,10 @@ Route.group(()=>{
   Route.post('/', 'AssociacaosController.store').as('store')
   Route.delete('/:id', 'AssociacaosController.destroy').as('destroy')
 }).prefix('/associacoes').as('associacao')
+Route.group(()=>{
+  Route.post('/','PostsController.store').as('store')
+}).prefix('/posts').as('post')
+
 Route.get('/login', 'SessionsController.create').as('session.create')
 Route.post('/login', 'SessionsController.store').as('session.store')
 Route.get('/logout', 'SessionsController.delete').as('session.delete')

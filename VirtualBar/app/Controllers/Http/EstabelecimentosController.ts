@@ -31,7 +31,6 @@ export default class EstabelecimentosController {
 
     }else{
      const user= await new EstabelecimentosServices().show(params.id)
-     console.log(user)
     if(id!=null){
      assoc= await new AssociacaoServices().VerificarCliente(id,user.id)
      }else{
@@ -39,7 +38,6 @@ export default class EstabelecimentosController {
           "text":"Livre"
          }
      }
-     console.log(assoc)
       return await view.render('profile/estabelecimento/cliente',{user:user,assoc:assoc})
     }
     // const user=new EstabelecimentosServices().recuperarInfos(userEmail,id)

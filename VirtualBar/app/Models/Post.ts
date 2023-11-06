@@ -5,7 +5,7 @@ export default class Post extends BaseModel {
   @column({ isPrimary: true })
   public id: number
   @column()
-  public id_cliente:number
+  public id_user:number
   @column ()
   public id_estabelecimento:number
   @column()

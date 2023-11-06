@@ -12,6 +12,7 @@ export default class UsersServices {
 
     return user
   }
+
   // public async buscarEmail(email:string){
   //   const user = await User.findByOrFail('email', email);
   //     return user

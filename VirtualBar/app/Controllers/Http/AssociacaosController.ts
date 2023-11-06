@@ -16,10 +16,10 @@ export default class AssociacaosController {
 
       })
 
-      return response.redirect('back')
+      return response.redirect().back()
       } catch (error) {
         // Trate exceções de maneira mais específica para entender o motivo do erro
-        return response.redirect('back')
+        return response.redirect().back()
       }
     }
     public async destroy({ params, response,auth}: HttpContextContract){
@@ -28,7 +28,7 @@ export default class AssociacaosController {
       try{
      const associate=await Associacao.findOrFail(id_cli)
       associate.delete()
-     return response.redirect('back')
+     return response.redirect().back()
      } catch (error) {
        // Trate exceções de maneira mais específica para entender o motivo do erro
        return response.badRequest('Erro')

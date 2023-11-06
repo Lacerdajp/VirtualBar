@@ -16,7 +16,9 @@
     <div class="collapse navbar-collapse justify-content-md-center" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-item nav-link " href="{{route('cliente.createHome')}}">Feed</a>
-        <a class="nav-item nav-link" href="#">Meu Estabelecimento</a>
+        @if(assoc.associacao!=null)
+          <a class="nav-item nav-link" href="{{route('estabelecimento.profile',{id:assoc.associacao.id_estabelecimento})}}">Meu Estabelecimento</a>
+        @endif
         <a class="nav-item nav-link" href="#">Profile</a>
       </div>
     </div>
