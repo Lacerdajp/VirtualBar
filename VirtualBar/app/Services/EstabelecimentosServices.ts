@@ -47,7 +47,6 @@ export default class EstabelecimentosServices {
       }
       estabelecimentos.push(element)
     }
-    console.log(estabelecimentos)
     return estabelecimentos
 }
 

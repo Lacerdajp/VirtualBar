@@ -84,6 +84,7 @@
                 <div class="g-mb-15">
 
                   <h5 class="h5 g-color-gray-dark-v1 mb-0">{{item.usuario}}</h5>
+                  <h6>{{item.data_update}}</h6>
                  @if(item.usuario==cliente.nome)
                     <form method="POST" action="{{route('post.destroy',{id:item.id},{qs:{_method:'DELETE'}})}}">
                       <button class="btn btn-danger w-20 py-2" type="submit" >Deletar Post</button>

@@ -2,11 +2,12 @@ import Post from '../Models/Post';
 import User from '../Models/User';
 import Estabelecimento from '../Models/Estabelecimento';
 import Cliente from '../Models/Cliente';
+import { DateTime } from 'luxon';
 
 export default class PostsServices {
   constructor() {}
   public async index(){
-    let posts:{id,usuario,estabelecimento,text,img}[]
+    let posts:{id,usuario,estabelecimento,text,img,data_update}[]
     const page = await Post.query().paginate(1, 10)
     posts=new Array()
         for (let i = 0; i < page.length; i++){
@@ -22,7 +23,8 @@ export default class PostsServices {
           usuario: nameUser,
           estabelecimento:(await Estabelecimento.find(page[i].id_estabelecimento))?.nome_estabelecimento,
           text:page[i].post,
-          img:page[i].img
+          img:page[i].img,
+          data_update:  page[i].updatedAt.toLocaleString(DateTime.DATETIME_SHORT)
         }
 
        posts.push(value)
@@ -48,7 +50,8 @@ export default class PostsServices {
           usuario: nameUser,
           estabelecimento:(await Estabelecimento.find(page[i].id_estabelecimento))?.nome_estabelecimento,
           text:page[i].post,
-          img:page[i].img
+          img:page[i].img,
+          data_update: page[i].updatedAt.toLocaleString(DateTime.DATETIME_SHORT)
         }
 
        posts.push(value)
