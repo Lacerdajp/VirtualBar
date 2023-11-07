@@ -26,4 +26,12 @@ export default class UsersController {
   //     message: 'DELETE',
   //   }
   // }
+
+  public async destroy({ request, response }: HttpContextContract) {
+    const userId = request.param('id');
+    const user = await User.findOrFail(userId);
+    await user.delete();
+    response.redirect().toRoute('/logout');
+
+  }
 }

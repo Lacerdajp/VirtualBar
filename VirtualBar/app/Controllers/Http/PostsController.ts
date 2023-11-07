@@ -29,4 +29,12 @@ export default class PostsController {
     }
 
   }
+
+  public async destroy({ request, response }: HttpContextContract) {
+    const userId = request.param('id');
+    const user = await Post.findOrFail(userId);
+    await user.delete();
+    response.redirect().back();
+
+  }
 }

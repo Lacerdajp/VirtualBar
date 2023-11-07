@@ -27,7 +27,7 @@ import View from '@ioc:Adonis/Core/View';
 Route.group(()=>{
   Route.get('/', 'UsersController.create').as('create')//chamar page cadastro
   // Route.post('/', 'UsersController.store').as('user.store')//cria um user
-  // Route.delete('/:id', 'UsersController.destroy').as('user.destroy')//deleta um user
+   Route.delete('/:id', 'UsersController.destroy').as('destroy')//deleta um user
 }).prefix('/users').as('user')
 
 Route.group(()=>{
@@ -49,6 +49,7 @@ Route.group(()=>{
 }).prefix('/associacoes').as('associacao')
 Route.group(()=>{
   Route.post('/','PostsController.store').as('store')
+  Route.delete('/:id', 'PostsController.destroy').as('destroy')
 }).prefix('/posts').as('post')
 
 Route.get('/login', 'SessionsController.create').as('session.create')

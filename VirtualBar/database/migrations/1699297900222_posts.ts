@@ -7,9 +7,9 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.integer('id_user').unsigned()
-      .references('id').inTable('users').notNullable()
+      .references('id').inTable('users').notNullable().onDelete('CASCADE')
       table.integer('id_estabelecimento')
-      .references('id').inTable('estabelecimentos')
+      .references('id').inTable('estabelecimentos').onDelete('CASCADE')
       table.string('post')
       table.integer('estrelas')
       table.string('img')

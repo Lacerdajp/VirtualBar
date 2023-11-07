@@ -6,7 +6,7 @@ import Cliente from '../Models/Cliente';
 export default class PostsServices {
   constructor() {}
   public async index(){
-    let posts:{usuario,estabelecimento,text,img}[]
+    let posts:{id,usuario,estabelecimento,text,img}[]
     const page = await Post.query().paginate(1, 10)
     posts=new Array()
         for (let i = 0; i < page.length; i++){
@@ -18,6 +18,7 @@ export default class PostsServices {
           nameUser= (await Cliente.find(page[i].id_user))?.primeiro_nome
        }
         const value={
+          id:page[i].id,
           usuario: nameUser,
           estabelecimento:(await Estabelecimento.find(page[i].id_estabelecimento))?.nome_estabelecimento,
           text:page[i].post,

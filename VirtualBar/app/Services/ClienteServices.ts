@@ -7,6 +7,7 @@ export default class ClienteServices {
     if(email==undefined ||id==undefined){
       const string="Usuario Não encontrado"
       const user={
+        id:string,
         email:string,
         nome:string,
         sobrenome:string,
@@ -18,6 +19,7 @@ export default class ClienteServices {
     }else{
     const cliente= await Cliente.findByOrFail("id",id)
     const user={
+      id:cliente.id,
       email:email,
       nome:cliente.primeiro_nome,
       sobrenome:cliente.sobrenome,

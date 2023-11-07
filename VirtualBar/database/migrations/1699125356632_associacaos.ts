@@ -7,9 +7,9 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.integer('id_cliente').unsigned()
-      .references('id').inTable('clientes').notNullable().unique()
+      .references('id').inTable('clientes').notNullable().unique().onDelete('CASCADE')
       table.integer('id_estabelecimento') .unsigned()
-      .references('id').inTable('estabelecimentos').notNullable()
+      .references('id').inTable('estabelecimentos').notNullable().onDelete('CASCADE')
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */
