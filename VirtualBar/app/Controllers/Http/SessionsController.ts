@@ -4,6 +4,7 @@ import HttpExceptionHandler from '@ioc:Adonis/Core/HttpExceptionHandler'
 import { resetRetrieveHandlers } from 'source-map-support'
 import User from '../../Models/User';
 import UsersServices from '../../Services/UsersServices';
+import View from '@ioc:Adonis/Core/View';
 
 export default class SessionsController {
   public async create({ view }: HttpContextContract) {
@@ -21,7 +22,7 @@ export default class SessionsController {
         return response.redirect().toRoute('cliente.createHome')
       }
     } catch {
-      return response.badRequest('invalid')
+      return View.render('cadastro/login',{messages:"Login Invalido"})
     }
   }
   public async delete({ auth, response }: HttpContextContract) {
