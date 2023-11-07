@@ -6,6 +6,8 @@ import UsersServices from 'App/Services/UsersServices';
 import Route from '@ioc:Adonis/Core/Route';
 import Cliente from '../../Models/Cliente';
 import AssociacaoServices from 'App/Services/AssociacaoServices';
+import PostsServices from '../../Services/PostsServices';
+import ClienteServices from '../../Services/ClienteServices';
 
 export default class EstabelecimentosController {
   public async createCadastro({ view }: HttpContextContract) {
@@ -38,7 +40,9 @@ export default class EstabelecimentosController {
           "text":"Livre"
          }
      }
-      return await view.render('profile/estabelecimento/cliente',{user:user,assoc:assoc})
+     const cliente=await new ClienteServices().recuperarInfos(userEmail,id)
+     const post=await new PostsServices().indexPorEstabelecimento(user.id)
+      return await view.render('profile/estabelecimento/cliente',{user:user,assoc:assoc,post,cliente})
     }
     // const user=new EstabelecimentosServices().recuperarInfos(userEmail,id)
 
