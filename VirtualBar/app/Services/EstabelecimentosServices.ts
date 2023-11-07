@@ -33,8 +33,22 @@ export default class EstabelecimentosServices {
   }
   public async showAll(){
     const all=await Estabelecimento.query()
+    let estabelecimentos: Array<{id,nome_estabelecimento,cnpj,estrelas,tipo,img}>
+    estabelecimentos=new Array()
+    for (let i = 0; i < all.length; i++) {
+      const element = {
+        id:all[i].id,
+        nome_estabelecimento:all[i].nome_estabelecimento,
+        cnpj:all[i].cnpj,
+        estrelas:all[i].estrelas,
+        tipo:JSON.parse(all[i].tipo),
+        img:all[i].img
 
-    return all
+      }
+      estabelecimentos.push(element)
+    }
+    console.log(estabelecimentos)
+    return estabelecimentos
 }
 
 }
