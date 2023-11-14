@@ -33,9 +33,11 @@ export default class EstabelecimentosServices {
   }
   public async showAll(){
     const all=await Estabelecimento.query()
+    let tipo
     let estabelecimentos: Array<{id,nome_estabelecimento,cnpj,estrelas,tipo,img}>
     estabelecimentos=new Array()
     for (let i = 0; i < all.length; i++) {
+      
       const element = {
         id:all[i].id,
         nome_estabelecimento:all[i].nome_estabelecimento,

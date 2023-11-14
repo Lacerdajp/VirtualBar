@@ -21,7 +21,7 @@ export default class ClientesController {
     const estabelecimentos=await new EstabelecimentosServices().showAll()
     const assoc=await new AssociacaoServices().IsLogged(id)
     const posts=await new PostsServices().index()
-    return await view.render('Feed/HomeCliente',{user,estabelecimentos,assoc,posts})
+    return await view.render('Home/Feed/HomeCliente',{user,estabelecimentos,assoc,posts})
 
 
   }

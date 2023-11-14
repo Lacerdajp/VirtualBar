@@ -18,7 +18,7 @@ export default class EstabelecimentosController {
     const userEmail = auth.user?.email;
     const id=auth.user?.id;
     const user=new EstabelecimentosServices().recuperarInfos(userEmail,id)
-    return await view.render('Feed/HomeEstabelecimento',user)
+    return await view.render('Home/Feed/HomeEstabelecimento',user)
 
 
   }
@@ -32,17 +32,17 @@ export default class EstabelecimentosController {
     }else if(auth.user?.isEstabelecimento){
 
     }else{
-     const user= await new EstabelecimentosServices().show(params.id)
+     const estabelecimento= await new EstabelecimentosServices().show(params.id)
     if(id!=null){
-     assoc= await new AssociacaoServices().VerificarCliente(id,user.id)
+     assoc= await new AssociacaoServices().VerificarCliente(id,estabelecimento.id)
      }else{
          assoc={
           "text":"Livre"
          }
      }
-     const cliente=await new ClienteServices().recuperarInfos(userEmail,id)
-     const post=await new PostsServices().indexPorEstabelecimento(user.id)
-      return await view.render('profile/estabelecimento/cliente',{user:user,assoc:assoc,post,cliente})
+     const user=await new ClienteServices().recuperarInfos(userEmail,id)
+     const posts=await new PostsServices().indexPorEstabelecimento(estabelecimento.id)
+      return await view.render('profile/estabelecimento/cliente',{estabelecimentos:estabelecimento,assoc:assoc,posts,user})
     }
     // const user=new EstabelecimentosServices().recuperarInfos(userEmail,id)
 
