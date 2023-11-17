@@ -12,7 +12,7 @@ export default class PostsController {
       id_estabelecimento=id_user
     }else{
       const assoc=await (new AssociacaoServices()).IsLogged(id_user)
-      id_estabelecimento= assoc.associacao?.id_estabelecimento
+      id_estabelecimento= assoc.estabelecimento.id
     }
     const post= await Post.create(
       {

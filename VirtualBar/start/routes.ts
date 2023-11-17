@@ -45,6 +45,7 @@ Route.group(()=>{
 }).prefix('/estabelecimentos').as('estabelecimento')
 Route.group(()=>{
   Route.post('/', 'AssociacaosController.store').as('store')
+  Route.get('/:id', 'AssociacaosController.index').as('index')
   Route.delete('/:id', 'AssociacaosController.destroy').as('destroy')
 }).prefix('/associacoes').as('associacao')
 Route.group(()=>{

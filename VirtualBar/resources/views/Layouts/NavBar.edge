@@ -15,12 +15,12 @@
                 Favoritos
               </a>
             </li>
-            @if(assoc.associacao!=null)
+            @if(assoc.estabelecimento!=null)
               <li class="nav-item">
-              <a class="nav-link" href="{{route('estabelecimento.profile',{id:assoc.associacao.id_estabelecimento})}}">Meu Estabelecimento</a>
+              <a class="nav-link" href="{{route('estabelecimento.profile',{id:assoc.estabelecimento.id})}}">Meu Estabelecimento</a>
             </li>
             @endif
-           
+
         </ul>
 
         <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
@@ -35,13 +35,13 @@
           <ul class="dropdown-menu text-small" style="">
             <li><button class="dropdown-item" href="#"><i class="bi bi-person"></i> Profile</button></li>
             <li><button class="dropdown-item" href="#"><i class="bi bi-pen"></i> Editar</button></li>
-            <li><button class="dropdown-item" href="#"><i class="bi bi-gear"></i> Configurações</button></li> 
-            
+            <li><button class="dropdown-item" href="#"><i class="bi bi-gear"></i> Configurações</button></li>
+
             <li><hr class="dropdown-divider"></li>
-            
+
             <li><form action="{{route('session.delete')}}" method="Get">
               <button class="dropdown-item" style="color:red"type="submit" ><i class="bi bi-box-arrow-left"></i> Sair</button>
-            </form>  </li>  
+            </form>  </li>
             <li><form method="POST" action="{{route('user.destroy',{id:user.id},{qs:{_method:'DELETE'}})}}">
               <button class="dropdown-item" style="color:red"  type="submit" ><i class="bi bi-trash3-fill"></i> Deletar</button>
             </form></li>

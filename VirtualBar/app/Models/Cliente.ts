@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, hasOne, HasOne } from '@ioc:Adonis/Lucid/Orm';
+import Estabelecimento from './Estabelecimento';
 
 export default class Cliente extends BaseModel {
   @column({ isPrimary: true })
@@ -17,4 +18,8 @@ export default class Cliente extends BaseModel {
   @column()
   public img:string
 
+  @column()
+   public estabelecimentoId:number
+  @hasOne (()=>Estabelecimento)
+  public estabelecimento:HasOne<typeof Estabelecimento>
 }

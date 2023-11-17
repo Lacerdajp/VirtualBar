@@ -36,7 +36,7 @@
                 @elseif(assoc.text=="Ocupado")
                 <form method="POST"
                 action="{{
-                  route('associacao.destroy', {id:assoc.associacao.id}, { qs: { _method: 'DELETE' } })
+                  route('associacao.destroy', {id:assoc.cliente.id}, { qs: { _method: 'DELETE' } })
                 }}"
               >
                   <button class="btn btn-primary btn-lg px-4 gap-3" style=" background-color: red;" data-abc="true" type="submit">Sair</button>
@@ -73,7 +73,7 @@
 
                 </form>
                 @end
-{{--  
+{{--
             </div>
         </div>  --}}
 

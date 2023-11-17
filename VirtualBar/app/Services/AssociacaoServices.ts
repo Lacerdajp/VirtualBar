@@ -1,35 +1,43 @@
 import Associacao from '../Models/Associacao';
+import Cliente from '../Models/Cliente';
+import Estabelecimento from '../Models/Estabelecimento';
 
 export default class AssociacaoServices {
     constructor() {}
     public async VerificarCliente(id_cli:number, id_estabelecimento:number){
-        const assoc=await Associacao.findBy('id_cliente',id_cli)
+        const cliente=await Cliente.findByOrFail('id',id_cli)
+        await cliente.load('estabelecimento')
+        const estabelecimento=cliente.estabelecimento
         let text:string
-        if(assoc==null){
+        if(cliente.estabelecimentoId==null){
           text="Livre"
-      }else if(assoc.id_estabelecimento==id_estabelecimento){
+      }else if(cliente.estabelecimentoId==id_estabelecimento){
         text="Ocupado"
       }else{
         text="Outro Estabelecimento"
       }
       const value={
         "text":text,
-        "associacao":assoc
+        "estabelecimento":estabelecimento,
+        "cliente":cliente
       }
       return value
     }
 
     public async IsLogged(id_cli:number|undefined){
-      const assoc=await Associacao.findBy('id_cliente',id_cli)
+      const cliente=await Cliente.findByOrFail('id',id_cli)
+      await cliente.load('estabelecimento')
+      const estabelecimento=cliente.estabelecimento
       let text:string
-      if(assoc==null){
+      if(cliente.estabelecimentoId==null){
         text="Livre"
     }else{
       text="Ocupado"
     }
     const value={
       "text":text,
-      "associacao":assoc
+      "estabelecimento":estabelecimento,
+      "cliente":cliente
     }
     return value
   }
