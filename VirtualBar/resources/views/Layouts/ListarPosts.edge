@@ -5,14 +5,14 @@
     <div class="row">
 
     <div class="col text-left">
-     <p class="fs-6 fw-light">{{item.data_update}}</p> 
-    </div>   
-    <div class=" col text-center">
-    <a href="{{ route('estabelecimento.profile', { id: item.id }) }}"class="card-selector" >
-    <img class="rounded-circle " width="35" height="32" src="https://www.uairango.com/developer/assets/images/estabelecimento.png" alt="Image Description">
-    <h4 >{{item.estabelecimento}}</h4></a>
+     <p class="fs-6 fw-light">{{item.updatedAt}}</p>
     </div>
-    @if(item.usuario==user.nome)
+    <div class=" col text-center">
+    <a href="{{ route('estabelecimento.profile', { id: item.id_estabelecimento }) }}"class="card-selector" >
+    <img class="rounded-circle " width="35" height="32" src="https://www.uairango.com/developer/assets/images/estabelecimento.png" alt="Image Description">
+    <h4 >{{item.estabelecimento.nome_estabelecimento}}</h4></a>
+    </div>
+    @if(item.usuario.id==user.id)
       <div class="dropdown col text-end">
         <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
           <i class="bi bi-three-dots"></i>
@@ -20,27 +20,33 @@
         <ul class="dropdown-menu text-small" style="">
           <li><button class="dropdown-item" href="#"><i class="bi bi-pen"></i> Editar</button></li>
           <li><hr class="dropdown-divider"></li>
-          
+
           <li> <form method="POST" action="{{route('post.destroy',{id:item.id},{qs:{_method:'DELETE'}})}}" >
             <button class="dropdown-item" style="color: red"  type="submit" ><i class="bi bi-trash3"></i> Deletar</button>
-          </form>  </li>  
+          </form>  </li>
         </ul>
       </div>
       @else
       <div class="col">
-        
+
       </div>
     @end
-  
+
    </div>
   </div>
   <div class="card-body">
     <a>
-    <img class="rounded-circle " width="35" height="32" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Image Description">     
-    <h5 class="card-title">{{item.usuario}}</h5>
+    <img class="rounded-circle " width="35" height="32" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Image Description">
+    <h5 class="card-title">
+      @if(item.usuario.isEstabelecimento)
+          {{item.usuario.estabelecimento.nome_estabelecimento}}
+      @else
+          {{item.usuario.cliente.primeiro_nome}}
+      @end
+    </h5>
     </a>
-    <p class="card-text">{{item.text}}</p>
-    
+    <p class="card-text">{{item.post}}</p>
+
   </div>
   <div class="card-footer text-body-secondary">
     <div class="container text-center">
@@ -62,5 +68,5 @@
     </div>
   </div>
 </div>
-@end  
+@end
 @end

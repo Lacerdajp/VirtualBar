@@ -1,6 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import AssociacaoServices from '../../Services/AssociacaoServices';
 import Post from '../../Models/Post';
+import Cliente from '../../Models/Cliente';
+import PostsServices from '../../Services/PostsServices';
 
 export default class PostsController {
   public async store({ request, response,auth }: HttpContextContract){
@@ -11,8 +12,8 @@ export default class PostsController {
     if(auth.user?.isEstabelecimento){
       id_estabelecimento=id_user
     }else{
-      const assoc=await (new AssociacaoServices()).IsLogged(id_user)
-      id_estabelecimento= assoc.estabelecimento.id
+      const cliente=await Cliente.findOrFail(id_user)
+      id_estabelecimento=cliente.estabelecimentoId
     }
     const post= await Post.create(
       {
@@ -36,5 +37,11 @@ export default class PostsController {
     await user.delete();
     response.redirect().back();
 
+  }
+
+
+  public async show({ request, response,auth }: HttpContextContract) {
+    const posts= await new PostsServices().index()
+    return response.json(posts)
   }
 }

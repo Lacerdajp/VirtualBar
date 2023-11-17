@@ -4,25 +4,11 @@ export default class EstabelecimentosServices {
 
   public async recuperarInfos(email:string|undefined,id:number|undefined){
     if(email==undefined ||id==undefined){
-      const string="Usuario Não encontrado"
-      const user={
-        email:string,
-      cnpj:string,
-      nome:string,
-      tipo:string,
-      img:string
-      }
-      return user
+      return null
     }else{
     const estabelecimento= await Estabelecimento.findByOrFail("id",id)
-     const user={
-      email:email,
-      cnpj:estabelecimento.cnpj,
-      nome:estabelecimento.nome_estabelecimento,
-      tipo:JSON.parse(estabelecimento.tipo),
-      img:estabelecimento.img
-
-    }
+     const user=estabelecimento
+     estabelecimento.tipo=JSON.parse(estabelecimento.tipo)
     return user}
 
   }
@@ -32,23 +18,26 @@ export default class EstabelecimentosServices {
     return estabelecimento;
   }
   public async showAll(){
-    const all=await Estabelecimento.query()
-    let tipo
-    let estabelecimentos: Array<{id,nome_estabelecimento,cnpj,estrelas,tipo,img}>
-    estabelecimentos=new Array()
-    for (let i = 0; i < all.length; i++) {
-      
-      const element = {
-        id:all[i].id,
-        nome_estabelecimento:all[i].nome_estabelecimento,
-        cnpj:all[i].cnpj,
-        estrelas:all[i].estrelas,
-        tipo:JSON.parse(all[i].tipo),
-        img:all[i].img
+    const estabelecimentos=await (await Estabelecimento.query()).map((estabelecimento)=>{
+      estabelecimento.tipo=JSON.parse(estabelecimento.tipo)
+      return estabelecimento
+    })
+    // let tipo
+    // let estabelecimentos: Array<{id,nome_estabelecimento,cnpj,estrelas,tipo,img}>
+    // estabelecimentos=new Array()
+    // for (let i = 0; i < all.length; i++) {
 
-      }
-      estabelecimentos.push(element)
-    }
+    //   const element = {
+    //     id:all[i].id,
+    //     nome_estabelecimento:all[i].nome_estabelecimento,
+    //     cnpj:all[i].cnpj,
+    //     estrelas:all[i].estrelas,
+    //     tipo:JSON.parse(all[i].tipo),
+    //     img:all[i].img
+
+    //   }
+    //   estabelecimentos.push(element)
+    // }
     return estabelecimentos
 }
 

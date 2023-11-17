@@ -51,6 +51,7 @@ Route.group(()=>{
 Route.group(()=>{
   Route.post('/','PostsController.store').as('store')
   Route.delete('/:id', 'PostsController.destroy').as('destroy')
+  Route.get('/', 'PostsController.show').as('show')
 }).prefix('/posts').as('post')
 
 Route.get('/login', 'SessionsController.create').as('session.create')

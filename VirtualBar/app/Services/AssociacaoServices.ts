@@ -1,4 +1,4 @@
-import Associacao from '../Models/Associacao';
+
 import Cliente from '../Models/Cliente';
 import Estabelecimento from '../Models/Estabelecimento';
 

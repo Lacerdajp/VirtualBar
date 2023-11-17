@@ -5,8 +5,6 @@ import UsersController from './UsersController';
 import UsersServices from '../../Services/UsersServices';
 import ClienteServices from 'App/Services/ClienteServices';
 import EstabelecimentosServices from '../../Services/EstabelecimentosServices';
-import Associacao from 'App/Models/Associacao';
-import AssociacaoServices from 'App/Services/AssociacaoServices';
 import PostsServices from '../../Services/PostsServices';
 
 export default class ClientesController {
@@ -19,9 +17,9 @@ export default class ClientesController {
     const id=auth.user?.id;
     const user= await new ClienteServices().recuperarInfos(userEmail,id)
     const estabelecimentos=await new EstabelecimentosServices().showAll()
-    const assoc=await new AssociacaoServices().IsLogged(id)
+
     const posts=await new PostsServices().index()
-    return await view.render('Home/Feed/HomeCliente',{user,estabelecimentos,assoc,posts})
+    return await view.render('Home/Feed/HomeCliente',{user,estabelecimentos,posts})
 
 
   }
@@ -37,6 +35,8 @@ export default class ClientesController {
      genero:data.genero,
      img:data.img
     })
+    await cliente.related('usuario').associate(usuario)
+    await usuario.related('cliente').create(cliente)
     try{
       return response.redirect().toRoute('session.create')
     }

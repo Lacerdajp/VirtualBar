@@ -15,9 +15,9 @@
                 Favoritos
               </a>
             </li>
-            @if(assoc.estabelecimento!=null)
+            @if(user.estabelecimentoId!=null)
               <li class="nav-item">
-              <a class="nav-link" href="{{route('estabelecimento.profile',{id:assoc.estabelecimento.id})}}">Meu Estabelecimento</a>
+              <a class="nav-link" href="{{route('estabelecimento.profile',{id:user.estabelecimentoId})}}">Meu Estabelecimento</a>
             </li>
             @endif
 

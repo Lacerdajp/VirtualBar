@@ -27,16 +27,16 @@
         @end
       </p>
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-        @if(assoc.text=="Livre")
+        @if(assoc=="Livre")
                 <form action="{{route('associacao.store')}}" method="POST">
                   <input type="hidden" name="id" value="{{estabelecimentos.id}}"/>
                   <button class="btn btn-primary btn-lg px-4 gap-3" data-abc="true" type="submit">Entrar</button>
                 </form>
 
-                @elseif(assoc.text=="Ocupado")
+                @elseif(assoc=="Ocupado")
                 <form method="POST"
                 action="{{
-                  route('associacao.destroy', {id:assoc.cliente.id}, { qs: { _method: 'DELETE' } })
+                  route('associacao.destroy', {id:user.id}, { qs: { _method: 'DELETE' } })
                 }}"
               >
                   <button class="btn btn-primary btn-lg px-4 gap-3" style=" background-color: red;" data-abc="true" type="submit">Sair</button>
@@ -63,7 +63,7 @@
                         <h3 class="m-b-0 font-light">5454</h3><small>Following</small>
                     </div>
                 </div>  --}}
-                @if(assoc.text=="Ocupado")
+                @if(assoc=="Ocupado")
                 <form  action="{{route('post.store')}}" method="POST"id="postagem">
                   <div class="mb-2 alinhar-post">
                     <label for="TextArea" class="form-label"></label>

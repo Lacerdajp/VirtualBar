@@ -1,5 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column, hasMany } from '@ioc:Adonis/Lucid/Orm'
+import User from './User'
+import Estabelecimento from './Estabelecimento'
 
 export default class Post extends BaseModel {
   @column({ isPrimary: true })
@@ -14,6 +16,14 @@ export default class Post extends BaseModel {
   public estrelas:number
   @column()
   public img:string
+  @belongsTo(() => User,{
+    foreignKey:'id_user'
+  })
+  public usuario: BelongsTo<typeof User>
+  @belongsTo(() => Estabelecimento,{
+    foreignKey:'id_estabelecimento'
+  })
+  public estabelecimento: BelongsTo<typeof Estabelecimento>
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

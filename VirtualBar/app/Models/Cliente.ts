@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, hasOne, HasOne } from '@ioc:Adonis/Lucid/Orm';
+import { BaseModel, column, hasOne, HasOne, belongsTo,BelongsTo} from '@ioc:Adonis/Lucid/Orm';
 import Estabelecimento from './Estabelecimento';
+import User from './User';
 
 export default class Cliente extends BaseModel {
   @column({ isPrimary: true })
@@ -17,7 +18,10 @@ export default class Cliente extends BaseModel {
   public genero:string
   @column()
   public img:string
-
+  @belongsTo (()=>User,{
+    foreignKey:'id'
+  })
+  public usuario:BelongsTo<typeof User>
   @column()
    public estabelecimentoId:number
   @hasOne (()=>Estabelecimento)
