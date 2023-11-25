@@ -1,29 +1,28 @@
 var emailInput = document.getElementById('email');
-  var emailFeedback = document.getElementById('emailFeedback');
+var emailFeedback = document.getElementById('email-Feedback');
 
-  emailInput.addEventListener('input', function() {
-    var email = this.value.trim();
+emailInput.addEventListener('input', function () {
+  var email = this.value.trim();
+  // Expressão regular para validar o formato do email
+  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    // Expressão regular para validar o formato do email
-    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (emailRegex.test(email)) {
-      // Email válido
-      emailInput.classList.remove('is-invalid');
-      emailFeedback.style.display = 'none';
-    } else {
-      // Email inválido
-      emailInput.classList.add('is-invalid');
-      emailFeedback.style.display = 'block';
-    }
-  });
+  if (!emailRegex.test(email) && email.length > 0) {
+    // Email válido
+    emailInput.classList.add('is-invalid');
+    emailFeedback.hidden = false;
+  } else {
+    // Email inválido
+    emailInput.classList.remove('is-invalid');
+    emailFeedback.hidden = true;
+  }
+});
 
 
-    var cnpj=document.getElementById('cnpj')
-    if(cnpj!=null){
-    cnpj.addEventListener('input', function() {
+var cnpj = document.getElementById('cnpj')
+if (cnpj != null) {
+  cnpj.addEventListener('input', function () {
     var cnpjValue = this.value.replace(/\D/g, '');
-    this.value=cnpjValue
+    this.value = cnpjValue
     cnpjValue = cnpjValue.substr(0, 14);
     if (cnpjValue.length <= 2) {
     } else if (cnpjValue.length <= 5) {

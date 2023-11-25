@@ -7,6 +7,7 @@ import Route from '@ioc:Adonis/Core/Route';
 import Cliente from '../../Models/Cliente';
 import PostsServices from '../../Services/PostsServices';
 import ClienteServices from '../../Services/ClienteServices';
+import EstabelecimentoCreateValidator from 'App/Validators/EstabelecimentoCreateValidator';
 
 export default class EstabelecimentosController {
   public async createCadastro({ view }: HttpContextContract) {
@@ -53,24 +54,26 @@ export default class EstabelecimentosController {
     return await new EstabelecimentosServices().show(params.id)
 
   }
-  public async store({ request, response }: HttpContextContract) {
-    const data = request.only(['nome_estabelecimento', 'cnpj', 'email', 'password', 'tipo', 'img']);
-    const userServices = new UsersServices()
-    const usuario = await userServices.create(data.email, data.password, true)
-    const estabelecimento = await Estabelecimento.create({
-      id: usuario.id,
-      cnpj: data.cnpj,
-      tipo: JSON.stringify(data.tipo),
-      nome_estabelecimento: data.nome_estabelecimento,
-      img: data.img
-    })
-    await estabelecimento.related('usuario').associate(usuario)
-    usuario.related('estabelecimento').create(estabelecimento)
+  public async store({ request, response, session }: HttpContextContract) {
+    const data = await request.validate(EstabelecimentoCreateValidator)
     try {
+      const userServices = new UsersServices()
+      const usuario = await userServices.create(data.email, data.password, true)
+      const estabelecimento = await Estabelecimento.create({
+        id: usuario.id,
+        cnpj: data.cnpj,
+        tipo: JSON.stringify(data.tipo),
+        nome_estabelecimento: data.nome_estabelecimento,
+        img: data.img
+      })
+      await estabelecimento.related('usuario').associate(usuario)
+      usuario.related('estabelecimento').create(estabelecimento)
       return response.redirect().toRoute('session.create')
     }
     catch {
-      return response.badRequest('invalid')
+      session.flashOnly(['nome', 'cnpj', 'email', 'password', 'tipo', 'img'])
+      session.flash({ errors: { login: 'Não foi possivel criar User' } })
+      return response.redirect().toRoute('estabelecimento.create')
     }
   }
 

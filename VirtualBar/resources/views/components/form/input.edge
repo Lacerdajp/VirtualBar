@@ -1,0 +1,13 @@
+<div class="form-floating">
+        <input name="{{name.toLowerCase()}}"type="{{type.toLowerCase()}}" class="form-control
+         @if(flashMessages.has(`errors.${name.toLowerCase()}`))
+            is-invalid
+         @end
+        " id="floating{{name.toLowerCase()}}" placeholder="{{placeholder}}">
+        <label for="floating{{name.toLowerCase()}}">{{name}}</label>
+        @if(flashMessages.has(`errors.${name.toLowerCase()}`))
+        <p class="text-sm text-primary-500">
+          {{ flashMessages.get(`errors.${name.toLowerCase()}`) }}
+         </p>
+@end
+</div>

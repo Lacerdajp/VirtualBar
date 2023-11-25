@@ -7,6 +7,6 @@
   "assets/cadastro.js": "http://localhost:8080/assets/cadastro.js",
   "assets/profile.css": "http://localhost:8080/assets/profile.css",
   "assets/profile.js": "http://localhost:8080/assets/profile.js",
-  "assets/fonts/bootstrap-icons.woff?": "http://localhost:8080/assets/fonts/bootstrap-icons.449ad8ad.woff",
-  "assets/fonts/bootstrap-icons.woff2?": "http://localhost:8080/assets/fonts/bootstrap-icons.dea24bf5.woff2"
+  "assets/fonts/bootstrap-icons.woff?": "http://localhost:8080/assets/fonts/bootstrap-icons.66b7720f.woff",
+  "assets/fonts/bootstrap-icons.woff2?": "http://localhost:8080/assets/fonts/bootstrap-icons.64ed46b2.woff2"
 }
