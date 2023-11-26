@@ -34,7 +34,7 @@ validator.rule('nome_estabelecimento', (value, _, options) => {
   if (typeof value !== 'string') {
     return
   }
-  let regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ0-9]+$/;
+  let regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ0-9\s]+$/;
   if (!regex.test(value)) {
     options.errorReporter.report(
       options.pointer,
@@ -48,7 +48,7 @@ validator.rule('nome', (value, _, options) => {
   if (typeof value !== 'string') {
     return
   }
-  let regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ]+$/
+  let regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$/
   if (!regex.test(value)) {
     options.errorReporter.report(
       options.pointer,

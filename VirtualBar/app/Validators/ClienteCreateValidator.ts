@@ -33,10 +33,13 @@ export default class ClienteCreateValidator extends BaseValidator {
     ]),
     email: schema.string([
       rules.email(),
+      rules.unique({ table: 'users', column: 'email' }),
     ]),
     password: schema.string(),
     genero: schema.string(),
-    data_nascimento: schema.date(),
+    data_nascimento: schema.date({
+      format: 'sql'
+    }),
     img: schema.string.optional(),
   })
 

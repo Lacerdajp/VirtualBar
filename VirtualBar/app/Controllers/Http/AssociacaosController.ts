@@ -12,26 +12,27 @@ export default class AssociacaosController {
     cliente.related('estabelecimento').create(estabelecimento)
     estabelecimento.related('clientes').create(cliente)
 
-   return response.redirect().back()
+    return response.redirect().back()
 
   }
   public async destroy({ params, response, auth }: HttpContextContract) {
-
+    //destroi a associação pelo cliente
     const id_cli = params.id
     const cliente = await Cliente.findOrFail(id_cli)
     const estabelecimento = await Estabelecimento.findOrFail(cliente.estabelecimentoId)
 
-    await estabelecimento.related('clientes').query().where('estabelecimento_id',estabelecimento.id).update({estabelecimentoId:null})
-    await cliente.related('estabelecimento').query().where('cliente_id',cliente.id).update({clienteId:null})
+    await estabelecimento.related('clientes').query().where('estabelecimento_id', estabelecimento.id).update({ estabelecimentoId: null })
+    await cliente.related('estabelecimento').query().where('cliente_id', cliente.id).update({ clienteId: null })
 
     try {
-     return response.redirect().back()
+      return response.redirect().back()
     } catch (error) {
       // Trate exceções de maneira mais específica para entender o motivo do erro
       return response.badRequest('Erro')
     }
   }
-  public async index({ response,params, auth }: HttpContextContract) {
+  public async index({ response, params, auth }: HttpContextContract) {
+    //traz todos os clientes de um estabelecimento
     const user = params.id
     const estabelecimento = await Estabelecimento.findByOrFail('id', user)
     await estabelecimento.load('clientes')

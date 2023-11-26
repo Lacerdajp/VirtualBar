@@ -3,7 +3,9 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import BaseValidator from './BaseValidator'
 
 export default class AuthCreateValidator extends BaseValidator {
-  constructor(protected ctx: HttpContextContract) { super() }
+  constructor(protected ctx: HttpContextContract) {
+    super()
+  }
 
   /*
    * Define schema to validate the "shape", "type", "formatting" and "integrity" of data.

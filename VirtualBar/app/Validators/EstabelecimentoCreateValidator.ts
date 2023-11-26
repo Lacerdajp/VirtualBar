@@ -3,7 +3,10 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import BaseValidator from './BaseValidator';
 
 export default class EstabelecimentoCreateValidator extends BaseValidator {
-  constructor(protected ctx: HttpContextContract) { super() }
+  constructor() {
+    super()
+  }
+
 
   /*
    * Define schema to validate the "shape", "type", "formatting" and "integrity" of data.
@@ -30,9 +33,11 @@ export default class EstabelecimentoCreateValidator extends BaseValidator {
     ]),
     cnpj: schema.string([
       rules.cnpj(),
+      rules.unique({ table: 'estabelecimentos', column: 'cnpj' }),
     ]),
     email: schema.string([
       rules.email(),
+      rules.unique({ table: 'users', column: 'email' }),
     ]),
     password: schema.string(),
     tipo: schema.array().members(schema.string()),

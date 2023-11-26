@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, hasOne, HasOne, belongsTo,BelongsTo} from '@ioc:Adonis/Lucid/Orm';
+import { BaseModel, column, hasOne, HasOne, belongsTo, BelongsTo } from '@ioc:Adonis/Lucid/Orm';
 import Estabelecimento from './Estabelecimento';
 import User from './User';
 
@@ -12,18 +12,18 @@ export default class Cliente extends BaseModel {
   public primeiro_nome: string
   @column()
   public sobrenome: string
+  @column.date()
+  public data_nascimento: DateTime
   @column()
-  public data_nascimento:DateTime
+  public genero: string
   @column()
-  public genero:string
-  @column()
-  public img:string
-  @belongsTo (()=>User,{
-    foreignKey:'id'
+  public img: string
+  @belongsTo(() => User, {
+    foreignKey: 'id'
   })
-  public usuario:BelongsTo<typeof User>
+  public usuario: BelongsTo<typeof User>
   @column()
-   public estabelecimentoId:number
-  @hasOne (()=>Estabelecimento)
-  public estabelecimento:HasOne<typeof Estabelecimento>
+  public estabelecimentoId: number
+  @hasOne(() => Estabelecimento)
+  public estabelecimento: HasOne<typeof Estabelecimento>
 }

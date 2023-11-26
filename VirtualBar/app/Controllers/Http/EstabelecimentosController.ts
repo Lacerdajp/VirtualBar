@@ -8,6 +8,7 @@ import Cliente from '../../Models/Cliente';
 import PostsServices from '../../Services/PostsServices';
 import ClienteServices from '../../Services/ClienteServices';
 import EstabelecimentoCreateValidator from 'App/Validators/EstabelecimentoCreateValidator';
+import { validator, schema } from '@ioc:Adonis/Core/Validator';
 
 export default class EstabelecimentosController {
   public async createCadastro({ view }: HttpContextContract) {
@@ -55,7 +56,16 @@ export default class EstabelecimentosController {
 
   }
   public async store({ request, response, session }: HttpContextContract) {
-    const data = await request.validate(EstabelecimentoCreateValidator)
+    const info = await request.only(['nome_estabelecimento', 'cnpj', 'email', 'password', 'tipo', 'img'])
+    if (typeof info.tipo == 'string') {
+      info.tipo = [info.tipo]
+    }
+    const data = await request.validate(
+      {
+        schema: new EstabelecimentoCreateValidator().schema,
+        messages: new EstabelecimentoCreateValidator().messages,
+        data: info
+      })
     try {
       const userServices = new UsersServices()
       const usuario = await userServices.create(data.email, data.password, true)

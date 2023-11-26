@@ -7,6 +7,8 @@ import ClienteServices from 'App/Services/ClienteServices';
 import EstabelecimentosServices from '../../Services/EstabelecimentosServices';
 import PostsServices from '../../Services/PostsServices';
 import ClienteCreateValidator from 'App/Validators/ClienteCreateValidator';
+import { formToJSON } from 'axios';
+import { DateTime } from 'luxon';
 
 export default class ClientesController {
   public async createCadastro({ view }: HttpContextContract) {
@@ -25,9 +27,9 @@ export default class ClientesController {
 
   }
   public async store({ request, response, session }: HttpContextContract) {
-    //const data = request.only(['primeiro_nome', 'sobrenome', 'email', 'password', 'genero', 'data_nascimento', 'img']);
     const data = await request.validate(ClienteCreateValidator)
     try {
+
       const userServices = new UsersServices()
       const usuario = await userServices.create(data.email, data.password, false)
       const cliente = await Cliente.create({
@@ -46,6 +48,21 @@ export default class ClientesController {
       session.flashOnly(['nome', 'sobrenome', 'email', 'password', 'genero', 'data_nascimento', 'img'])
       session.flash({ errors: { login: 'Não foi possivel criar User' } })
       return response.redirect().toRoute('cliente.createCadastro')
+    }
+  }
+  public async update({ request, response, auth, params, session }: HttpContextContract) {
+    const data = await request.validate(ClienteCreateValidator);
+    try {
+      await auth.check()
+      const id = params.id
+      const cliente = await Cliente.findOrFail(id)
+      await cliente.merge(data)
+      await cliente.save()
+      console.log('sucesso')
+      return response.redirect().toRoute('cliente.createHome')
+    } catch {
+      session.flashOnly(['nome', 'sobrenome', 'email', 'password', 'genero', 'data_nascimento', 'img'])
+      return response.badRequest(session.flashMessages.all())
     }
   }
 

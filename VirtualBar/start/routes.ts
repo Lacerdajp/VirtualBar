@@ -24,32 +24,33 @@ import User from '../app/Models/User'
 import UsersController from '../app/Controllers/Http/UsersController';
 import { Router } from '@adonisjs/core/build/standalone';
 import View from '@ioc:Adonis/Core/View';
-Route.group(()=>{
+Route.group(() => {
   Route.get('/', 'UsersController.create').as('create')//chamar page cadastro
   // Route.post('/', 'UsersController.store').as('user.store')//cria um user
-   Route.delete('/:id', 'UsersController.destroy').as('destroy')//deleta um user
+  Route.delete('/:id', 'UsersController.destroy').as('destroy')//deleta um user
 }).prefix('/users').as('user')
 
-Route.group(()=>{
-  Route.post('/','ClientesController.store').as('store')
+Route.group(() => {
+  Route.post('/', 'ClientesController.store').as('store')
   Route.get('/new', 'ClientesController.createCadastro').as('createCadastro')
-  Route.get('/home','ClientesController.createHome').as('createHome')
+  Route.get('/home', 'ClientesController.createHome').as('createHome')
+  Route.put('/:id', 'ClientesController.update').as('update')
 }).prefix('/clientes').as('cliente')
-Route.group(()=>{
-  Route.post('/','EstabelecimentosController.store').as('store')
+Route.group(() => {
+  Route.post('/', 'EstabelecimentosController.store').as('store')
   Route.get('/new', 'EstabelecimentosController.createCadastro').as('createCadastro')
-  Route.get('/home','estabelecimentosController.createHome' ).as('createHome')
-  Route.get('/:id/profile','EstabelecimentosController.createProfile').as('profile')
-  Route.get('/:id','EstabelecimentosController.show').as('show')
+  Route.get('/home', 'estabelecimentosController.createHome').as('createHome')
+  Route.get('/:id/profile', 'EstabelecimentosController.createProfile').as('profile')
+  Route.get('/:id', 'EstabelecimentosController.show').as('show')
 
 }).prefix('/estabelecimentos').as('estabelecimento')
-Route.group(()=>{
+Route.group(() => {
   Route.post('/', 'AssociacaosController.store').as('store')
   Route.get('/:id', 'AssociacaosController.index').as('index')
   Route.delete('/:id', 'AssociacaosController.destroy').as('destroy')
 }).prefix('/associacoes').as('associacao')
-Route.group(()=>{
-  Route.post('/','PostsController.store').as('store')
+Route.group(() => {
+  Route.post('/', 'PostsController.store').as('store')
   Route.delete('/:id', 'PostsController.destroy').as('destroy')
   Route.get('/', 'PostsController.show').as('show')
 }).prefix('/posts').as('post')
