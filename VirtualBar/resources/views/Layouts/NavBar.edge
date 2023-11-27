@@ -36,7 +36,7 @@
           </a>
           <ul class="dropdown-menu text-small" style="">
             <li><button class="dropdown-item" href="#"><i class="bi bi-person"></i> Profile</button></li>
-            <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editar"><i class="bi bi-pen"></i> Editar</button></li>
+            <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit"><i class="bi bi-pen"></i> Editar</button></li>
             <li><button class="dropdown-item" href="#"><i class="bi bi-gear"></i> Configurações</button></li>
 
             <li><hr class="dropdown-divider"></li>
@@ -52,11 +52,12 @@
       </div>
     </div>
   </header>
-
-  <div class="modal fade" id="editar" tabindex="-1"  aria-hidden="true">
+ <form  method="POST" action="{{route('cliente.update',{id:user.id},{qs:{_method:'PUT'}})}}">
+<div class="modal fade" id="edit" aria-labelledby="editLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
         @include('../Profile/Cliente/Editar.edge')
       </div>
     </div>
   </div>
+ </form>

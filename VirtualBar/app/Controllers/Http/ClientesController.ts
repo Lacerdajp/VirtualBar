@@ -9,12 +9,13 @@ import PostsServices from '../../Services/PostsServices';
 import ClienteCreateValidator from 'App/Validators/ClienteCreateValidator';
 import { formToJSON } from 'axios';
 import { DateTime } from 'luxon';
+import ClienteUpdateValidator from '../../Validators/ClienteUpdateValidator';
 
 export default class ClientesController {
   public async createCadastro({ view }: HttpContextContract) {
     return view.render('Cadastro/Cliente')
   }
-  public async createHome({ view, auth }: HttpContextContract) {
+  public async createHome({ view, auth }: HttpContextContract,) {
     await auth.check()
     const userEmail = auth.user?.email;
     const id = auth.user?.id;
@@ -50,18 +51,19 @@ export default class ClientesController {
     }
   }
   public async update({ request, response, auth, params, session }: HttpContextContract) {
-    const data = await request.validate(ClienteCreateValidator);
+    const data = await request.validate(ClienteUpdateValidator);
     try {
+
       await auth.check()
       const id = params.id
       const cliente = await Cliente.findOrFail(id)
       await cliente.merge(data)
       await cliente.save()
       console.log('sucesso')
-      return response.redirect().toRoute('cliente.createHome')
+      return await response.redirect().toRoute('cliente.createHome')
     } catch {
-      session.flashOnly(['nome', 'sobrenome', 'email', 'password', 'genero', 'data_nascimento', 'img'])
-      return response.badRequest(session.flashMessages.all())
+      session.flashOnly(['nome', 'sobrenome', 'genero', 'data_nascimento', 'img'])
+      return await response.redirect().toRoute('cliente.createHome')
     }
   }
 
