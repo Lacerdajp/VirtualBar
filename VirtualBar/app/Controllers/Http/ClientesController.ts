@@ -20,7 +20,6 @@ export default class ClientesController {
     const id = auth.user?.id;
     const user = await new ClienteServices().recuperarInfos(userEmail, id)
     const estabelecimentos = await new EstabelecimentosServices().showAll()
-
     const posts = await new PostsServices().index()
     return await view.render('Home/Feed/HomeCliente', { user, estabelecimentos, posts })
 

@@ -1,0 +1,11 @@
+<label for="{{name.toLowerCase()}}" class="form-label">{{name.replace('_',' ')}}</label>
+<input type="{{type}}" class="form-control
+@if(flashMessages.has(`errors.${name.toLowerCase()}`))
+          is-invalid
+       @end
+      " id="{{name.toLowerCase()}}" name="{{name.toLowerCase()}}"  value="{{value}}" required="">
+@if(flashMessages.has(`errors.${name.toLowerCase()}`))
+      <div class="invalid-feedback" >
+        {{ flashMessages.get(`errors.${name.toLowerCase()}`) }}
+       </div>
+@end

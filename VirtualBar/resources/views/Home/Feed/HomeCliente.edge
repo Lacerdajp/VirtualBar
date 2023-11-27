@@ -18,7 +18,7 @@
             <div class="row d-flex justify-content-center">
           @elseif(index%3==0)
           <div class="carousel-item">
-            <div class="row">
+            <div class="row d-flex justify-content-center">
           @else
 
           @endif
@@ -45,7 +45,7 @@
                 </a>
             </div>
         </div>
-        @if(index%3==2)
+        @if(index%3==2||estabelecimentos.length==index+1)
         </div>
           </div>
 
