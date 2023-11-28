@@ -1,19 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AdonisJS - A fully featured web framework for Node.js</title>
-  @entryPointStyles('app')
-  @entryPointScripts('app')
-</head>
-<body>
+@include('../../Home/Layout/HomeLayout.edge')
+      @section('Home')
+      <main class="border col-md-10 ms-sm-auto col-lg-10 px-md-3 p-3 col"style="width:85%" >
 
-  <main>
-    <form action="{{route('session.delete')}}" method="Get">
-      <h1>x</h1>
-    <button class="btn btn-danger w-100 py-2" type="submit" >Sair</button>
-    </form>
-  </main>
-</body>
-</html>
+          @if (user.clientes.length>0)
+          <div id="carouselExample" class="carousel slide">
+          <div class="carousel-inner">
+
+            <div class="row">
+          @each((e,index) in user.clientes)
+          @if(index==0)
+          <div class="carousel-item active">
+            <div class="row d-flex justify-content-center">
+          @elseif(index%3==0)
+          <div class="carousel-item">
+            <div class="row d-flex justify-content-center">
+          @else
+
+          @endif
+
+          <div class="card col-3 " >
+            <div class="card-body ">
+                <a href="{{ route('estabelecimento.profile', { id: e.id }) }}" class="card-selector">
+
+                    <h3 class="card-title"><strong>{{e.primeiro_nome+" "+e.sobrenome}}</strong></h3>
+                    <div class="card-component">
+                    {{e.genero}} | {{ e.data_nascimento.diffNow('years').negate().toFormat('y')}}
+                    </div>
+
+                </a>
+            </div>
+        </div>
+        @if(index%3==2||user.usuario.length==index+1)
+        </div>
+          </div>
+
+        @endif
+          @end
+          </div>
+        </div>
+        <button class="carousel-control-prev rounded-circle" style="background-color:black; margin-top: 5%; height: 50px; width: 50px;" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+          <i style="color: white" class="bi bi-arrow-left"></i>
+        </button>
+
+        <button class="carousel-control-next rounded-circle" style="background-color:black; margin-top: 5%; height: 50px; width: 50px;" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+          <i style="color: white" class="bi bi-arrow-right"></i>
+        </button>
+        </div>
+        @else
+          <p>Nenhum valor encontrado no banco de dados.</p>
+        @end
+      </div>
+      <form  action="{{route('post.store')}}" method="POST"id="postagem">
+        <div class="mb-2 alinhar-post">
+          <label for="TextArea" class="form-label"></label>
+          <textarea class="form-control" name="post" id="post" rows="3" placeholder="Escreva alguma coisa"></textarea>
+          <button type="submit" class="btn btn-primary" style="float:right">Post</button>
+        </div>
+      </form>
+
+      @end
+      @include('../../Layouts/ListarPosts.edge')
+
+        <canvas class="my-4 w-100" width="1233" height="520" style="display: block; box-sizing: border-box; height: 520px; width: 1233px;"></canvas>
+
+
+      </main>
+    </div>
+  </div>
+  @end
+

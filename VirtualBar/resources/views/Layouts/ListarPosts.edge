@@ -35,16 +35,17 @@
    </div>
   </div>
   <div class="card-body">
-    <a>
-    <img class="rounded-circle " width="35" height="32" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Image Description">
-    <h5 class="card-title">
-      @if(item.usuario.isEstabelecimento)
-          {{item.usuario.estabelecimento.nome_estabelecimento}}
-      @else
+
+     @if(!item.usuario.isEstabelecimento)
+          <a>
+          <img class="rounded-circle " width="35" height="32" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Image Description">
+          <h5 class="card-title">
           {{item.usuario.cliente.primeiro_nome}}
+        </h5>
       @end
-    </h5>
-    </a>
+
+
+
     <p class="card-text">{{item.post}}</p>
 
   </div>

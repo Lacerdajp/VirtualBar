@@ -9,6 +9,7 @@ import PostsServices from '../../Services/PostsServices';
 import ClienteServices from '../../Services/ClienteServices';
 import EstabelecimentoCreateValidator from 'App/Validators/EstabelecimentoCreateValidator';
 import { validator, schema } from '@ioc:Adonis/Core/Validator';
+import EstabelecimentoUpdateValidator from '../../Validators/EstabelecimentoUpdateValidator';
 
 export default class EstabelecimentosController {
   public async createCadastro({ view }: HttpContextContract) {
@@ -18,9 +19,9 @@ export default class EstabelecimentosController {
     await auth.check()
     const userEmail = auth.user?.email;
     const id = auth.user?.id;
-    const user = new EstabelecimentosServices().recuperarInfos(userEmail, id)
-
-    return await view.render('Home/Feed/HomeEstabelecimento', user)
+    const user = await new EstabelecimentosServices().recuperarInfos(userEmail, id)
+    const posts = await new PostsServices().index()
+    return await view.render('Home/Feed/HomeEstabelecimento', { user, posts })
 
 
   }
@@ -45,7 +46,6 @@ export default class EstabelecimentosController {
       }
       const user = await new ClienteServices().recuperarInfos(userEmail, id)
       const posts = await new PostsServices().indexPorEstabelecimento(estabelecimento.id)
-      posts.forEach(post => { console.log(post.toJSON()) })
       return await view.render('profile/estabelecimento/cliente', { estabelecimentos: estabelecimento, assoc, posts, user })
     }
     // const user=new EstabelecimentosServices().recuperarInfos(userEmail,id)
@@ -86,5 +86,33 @@ export default class EstabelecimentosController {
       return response.redirect().toRoute('estabelecimento.create')
     }
   }
-
+  public async update({ request, response, params, session, auth }: HttpContextContract) {
+    const info = await request.only(['nome_estabelecimento', 'cnpj', 'tipo', 'img'])
+    if (typeof info.tipo == 'string') {
+      info.tipo = [info.tipo]
+    }
+    const data = await request.validate(
+      {
+        schema: new EstabelecimentoUpdateValidator().schema,
+        messages: new EstabelecimentoUpdateValidator().messages,
+        data: info
+      })
+    try {
+      await auth.check()
+      const id = params.id
+      const usuario = await Estabelecimento.findOrFail(id)
+      await usuario.merge({
+        cnpj: data.cnpj,
+        tipo: JSON.stringify(data.tipo),
+        nome_estabelecimento: data.nome_estabelecimento,
+        img: data.img
+      })
+      await usuario.save()
+      return response.redirect().toRoute('estabelecimento.createHome')
+    }
+    catch {
+      session.flashOnly(['nome', 'cnpj', 'tipo', 'img'])
+      return response.redirect().toRoute('estabelecimento.createHome')
+    }
+  }
 }

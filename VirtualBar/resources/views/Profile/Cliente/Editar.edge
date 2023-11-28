@@ -4,6 +4,7 @@
   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
 <div class="modal-body">
+  @if(!user.usuario.isEstabelecimento)
     <div class="row g-3">
       <div class="col-sm-6">
         @!component('../../components/form/inputEdit.edge',{
@@ -70,6 +71,85 @@
       </div>
 
     </div>
+  @else
+    <div class="row g-3">
+      <div class="col-sm-6">
+        @!component('../../components/form/inputEdit.edge',{
+        type:'text',
+        name:'Nome_Estabelecimento',
+        value:user.nome_estabelecimento,
+        })
+      </div>
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="save-info">
+        <label class="form-check-label" for="save-info">Salvar estas informações</label>
+      </div>
+
+      <hr class="my-4">
+
+      <h4 class="mb-3">Genero</h4>
+
+      <h4 class="mb-3">Tipo de Estabelecimento</h4>
+     @if(flashMessages.has('errors.tipo'))
+        <div class="text-danger" >
+          {{ flashMessages.get('errors.tipo') }}
+         </div>
+        @endif
+    <div class="col-sm-2">
+      <div class="form-check">
+        <input id="bar" name="tipo" type="checkbox" value="Bar" class="form-check-input"
+        @if(user.tipo.includes( 'Bar'))
+          checked
+        @end
+        >
+        <label class="form-check-label" for="bar">Bar</label>
+      </div>
+      <div class="form-check">
+        <input id="sorveteria" name="tipo" type="checkbox" value="Sorveteria"class="form-check-input"
+        @if(user.tipo.includes( 'Sorveteria'))
+          checked
+        @end
+        >
+        <label class="form-check-label" for="sorveteria">Sorveteria</label>
+      </div>
+      <div class="form-check">
+        <input id="pizzaria" name="tipo" type="CheckBox" value="Pizzaria" class="form-check-input"
+        @if(user.tipo.includes( 'Pizzaria'))
+          checked
+        @end
+        >
+        <label class="form-check-label" for="pizzaria">Pizzaria</label>
+      </div>
+    </div>
+      <div class="col-sm-2">
+        <div class="form-check">
+          <input id="restaurante" name="tipo" type="checkbox" value="Restaurante"  class="form-check-input"
+          @if(user.tipo.includes( 'Restaurante'))
+            checked
+          @end
+          >
+          <label class="form-check-label" for="restaurante">Restaurante</label>
+        </div>
+        <div class="form-check">
+          <input id="cafeteria" name="tipo" type="checkbox" value="Cafeteria"class="form-check-input"
+          @if(user.tipo.includes( 'Cafeteria'))
+            checked
+          @end
+          >
+          <label class="form-check-label" for="cafeteria">Cafeteria</label>
+        </div>
+        <div class="form-check">
+          <input id="Oriental" name="tipo" type="checkbox" value="Oriental"class="form-check-input"
+          @if(user.tipo.includes( 'Oriental'))
+            checked
+          @end
+          >
+          <label class="form-check-label" for="Oriental">Oriental</label>
+        </div>
+    </div>
+
+    </div>
+  @endif
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
        <button type="submit" class="btn btn-primary" >Enviar</button>

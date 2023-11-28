@@ -42,6 +42,7 @@ Route.group(() => {
   Route.get('/home', 'estabelecimentosController.createHome').as('createHome')
   Route.get('/:id/profile', 'EstabelecimentosController.createProfile').as('profile')
   Route.get('/:id', 'EstabelecimentosController.show').as('show')
+  Route.put('/:id', 'EstabelecimentosController.update').as('update')
 
 }).prefix('/estabelecimentos').as('estabelecimento')
 Route.group(() => {

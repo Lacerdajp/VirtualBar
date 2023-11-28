@@ -59,7 +59,6 @@ export default class ClientesController {
       const cliente = await Cliente.findOrFail(id)
       await cliente.merge(data)
       await cliente.save()
-      console.log('sucesso')
       return await response.redirect().toRoute('cliente.createHome')
     } catch {
       session.flashOnly(['nome', 'sobrenome', 'genero', 'data_nascimento', 'img'])
