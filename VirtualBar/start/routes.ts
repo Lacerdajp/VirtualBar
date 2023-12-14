@@ -34,7 +34,9 @@ Route.group(() => {
   Route.post('/', 'ClientesController.store').as('store')
   Route.get('/new', 'ClientesController.createCadastro').as('createCadastro')
   Route.get('/home', 'ClientesController.createHome').as('createHome')
+  Route.get('/:id/profile', 'ClientesController.createProfile').as('profile')
   Route.put('/:id', 'ClientesController.update').as('update')
+
 }).prefix('/clientes').as('cliente')
 Route.group(() => {
   Route.post('/', 'EstabelecimentosController.store').as('store')

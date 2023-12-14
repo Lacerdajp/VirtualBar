@@ -37,11 +37,12 @@
   <div class="card-body">
 
      @if(!item.usuario.isEstabelecimento)
-          <a>
+          <a href="{{ route('cliente.profile', { id: item.id_user }) }}" class="card-selector2">
           <img class="rounded-circle " width="35" height="32" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Image Description">
           <h5 class="card-title">
           {{item.usuario.cliente.primeiro_nome}}
         </h5>
+          </a>
       @end
 
 

@@ -32,4 +32,17 @@ export default class PostsServices {
     })
     return posts
   }
+  public async indexPorUsuario(id_user: number) {
+    let posts = await Post.query().where('id_user', id_user).preload('usuario', (user) => {
+      user.where('isEstabelecimento', 1).preload('estabelecimento')
+      user.orWhere('isEstabelecimento', 0).preload('cliente');
+    }).preload('estabelecimento', (estabelecimento) => {
+      estabelecimento.preload('usuario')
+    }).orderBy('created_at', 'desc')
+    posts.forEach(post => {
+      post.createdAt = post.createdAt.toFormat('dd/MM/yyyy HH:mm a')
+      post.updatedAt = post.updatedAt.toFormat('dd/MM/yyyy HH:mm a')
+    })
+    return posts
+  }
 }

@@ -11,43 +11,11 @@
   @include('../../Layouts/NavBar.edge')
   <div class="bg-white px-4 py-5 my-5 text-center">
     <img class="d-block mx-auto mb-4" src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
-    <h1 class="display-5 fw-bold text-body-emphasis">{{estabelecimentos.nome_estabelecimento}}</h1>
+    <h1 class="display-5 fw-bold text-body-emphasis">{{user.primeiro_nome}}</h1>
     <div class="col-lg-6 mx-auto">
       <p class="lead mb-4">
-        @if(estabelecimentos.tipo[0].length==1 )
-        {{estabelecimentos.tipo}}
-        @else
-        @each(item in estabelecimentos.tipo)
-          @if(item== estabelecimentos.tipo[estabelecimentos.tipo.length-1])
-          {{item}}
-          @else
-            {{item}} |
-            @end
-        @end
-        @end
+         {{user.genero}} | {{ user.data_nascimento.diffNow('years').negate().toFormat('y')}}
       </p>
-      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-        @if(assoc=="Livre")
-                <form action="{{route('associacao.store')}}" method="POST">
-                  <input type="hidden" name="id" value="{{estabelecimentos.id}}"/>
-                  <button class="btn btn-primary btn-lg px-4 gap-3" data-abc="true" type="submit">Entrar</button>
-                </form>
-
-                @elseif(assoc=="Ocupado")
-                <form method="POST"
-                action="{{
-                  route('associacao.destroy', {id:user.id}, { qs: { _method: 'DELETE' } })
-                }}"
-              >
-                  <button class="btn btn-primary btn-lg px-4 gap-3" style=" background-color: red;" data-abc="true" type="submit">Sair</button>
-                  </form>
-                @else
-                {{--  <form action="{{route('associacao.store')}}" method="POST">
-                  <input type="hidden" name="id" value="{{user.id}}"/>
-                  <button class="m-t-10 waves-effect waves-dark btn btn-primary btn-md btn-rounded"  style=" background-color: orange;"data-abc="true" type="submit">Trocar para este Bar</button>
-                </form>  --}}
-                @end
-      </div>
     </div>
   </div>
 

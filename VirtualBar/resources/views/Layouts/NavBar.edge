@@ -42,7 +42,11 @@
             35" height="32" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Image Description">
           </a>
           <ul class="dropdown-menu text-small" style="">
-            <li><button class="dropdown-item" href="#"><i class="bi bi-person"></i> Profile</button></li>
+            <li><a class="dropdown-item"
+              @if(!user.usuario.is_estabelecimento)
+              href="{{route('cliente.profile',{id:user.id})}}"
+              @end
+            ><i class="bi bi-person"></i> Profile</a></li>
             <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit"><i class="bi bi-pen"></i> Editar</button></li>
             <li><button class="dropdown-item" href="#"><i class="bi bi-gear"></i> Configurações</button></li>
 

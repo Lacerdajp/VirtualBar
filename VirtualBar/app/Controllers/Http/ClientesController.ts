@@ -26,6 +26,15 @@ export default class ClientesController {
 
 
   }
+  public async createProfile({ view, auth }: HttpContextContract) {
+
+    await auth.check()
+    const user = await new ClienteServices().recuperarInfos(auth.user?.email, auth.user?.id)
+    if (user != null) {
+      const posts = await new PostsServices().indexPorUsuario(user.id)
+      return await view.render('profile/cliente/perfil', { posts, user })
+    }
+  }
   public async store({ request, response, session }: HttpContextContract) {
     const data = await request.validate(ClienteCreateValidator)
     try {
