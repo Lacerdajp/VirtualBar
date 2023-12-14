@@ -3,7 +3,13 @@
 @if(flashMessages.has(`errors.${name.toLowerCase()}`))
           is-invalid
        @end
-      " id="{{name.toLowerCase()}}" name="{{name.toLowerCase()}}"  value="{{value}}" required="">
+      " id="{{name.toLowerCase()}}" name="{{name.toLowerCase()}}"
+      @if(value==null || value==undefined)
+      value=""
+      @else
+      value="{{value}}"
+      @endif
+       >
 @if(flashMessages.has(`errors.${name.toLowerCase()}`))
       <div class="invalid-feedback" >
         {{ flashMessages.get(`errors.${name.toLowerCase()}`) }}

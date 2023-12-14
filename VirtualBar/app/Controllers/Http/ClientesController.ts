@@ -57,7 +57,19 @@ export default class ClientesController {
       await auth.check()
       const id = params.id
       const cliente = await Cliente.findOrFail(id)
-      await cliente.merge(data)
+      const usuario = await User.findOrFail(id)
+      await usuario.merge({
+        email: data.email,
+        password: data.password
+      })
+      await usuario.save()
+      await cliente.merge({
+        primeiro_nome: data.primeiro_nome,
+        sobrenome: data.sobrenome,
+        data_nascimento: data.data_nascimento,
+        genero: data.genero,
+        img: data.img
+      })
       await cliente.save()
       return await response.redirect().toRoute('cliente.createHome')
     } catch {

@@ -25,9 +25,18 @@ export default class EstabelecimentoUpdateValidator extends BaseValidator {
    *    ```
    */
   public schema = schema.create({
-    nome_estabelecimento: schema.string([
+
+    nome_estabelecimento: schema.string.optional([
       rules.nome_estabelecimento(),
     ]),
+    cnpj: schema.string.optional([
+      rules.cnpj(),
+    ]),
+    email: schema.string.optional([
+      rules.email(),
+      rules.unique({ table: 'users', column: 'email' }),
+    ]),
+    password: schema.string.optional(),
     tipo: schema.array().members(schema.string()),
     img: schema.string.optional(),
   })

@@ -10,6 +10,7 @@ import ClienteServices from '../../Services/ClienteServices';
 import EstabelecimentoCreateValidator from 'App/Validators/EstabelecimentoCreateValidator';
 import { validator, schema } from '@ioc:Adonis/Core/Validator';
 import EstabelecimentoUpdateValidator from '../../Validators/EstabelecimentoUpdateValidator';
+import User from 'App/Models/User';
 
 export default class EstabelecimentosController {
   public async createCadastro({ view }: HttpContextContract) {
@@ -101,6 +102,12 @@ export default class EstabelecimentosController {
       await auth.check()
       const id = params.id
       const usuario = await Estabelecimento.findOrFail(id)
+      const user = await User.findOrFail(id)
+      await user.merge({
+        email: data.email,
+        password: data.password
+      })
+      await user.save()
       await usuario.merge({
         cnpj: data.cnpj,
         tipo: JSON.stringify(data.tipo),

@@ -25,14 +25,19 @@ export default class ClienteUpdateValidator extends BaseValidator {
    *    ```
    */
   public schema = schema.create({
-    primeiro_nome: schema.string([
+    primeiro_nome: schema.string.optional([
       rules.nome()
     ]),
-    sobrenome: schema.string([
+    sobrenome: schema.string.optional([
       rules.nome(),
     ]),
+    email: schema.string.optional([
+      rules.email(),
+      rules.unique({ table: 'users', column: 'email' }),
+    ]),
+    password: schema.string.optional(),
     genero: schema.string(),
-    data_nascimento: schema.date({
+    data_nascimento: schema.date.optional({
       format: 'sql'
     }),
     img: schema.string.optional(),

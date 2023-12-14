@@ -20,6 +20,19 @@
         value:user.sobrenome,
         })
       </div>
+      <div class="col-sm-12">
+        @!component('../../components/form/inputEdit.edge',{
+        type:'text',
+        name:'Email',
+        value:null,
+        })
+      </div>
+      <div class="col-sm-12">
+        @!component('../../components/form/inputEdit.edge',{
+        type:'password',
+        name:'Password',
+        })
+      </div>
       <div class="form-check">
         <input type="checkbox" class="form-check-input" id="save-info">
         <label class="form-check-label" for="save-info">Salvar estas informações</label>
@@ -78,6 +91,27 @@
         type:'text',
         name:'Nome_Estabelecimento',
         value:user.nome_estabelecimento,
+        })
+      </div>
+      <div class="col-sm-6">
+        @!component('../../components/form/inputEdit.edge',{
+        type:'text',
+        name:'CNPJ',
+        value:user.cnpj,
+        })
+      </div>
+
+      <div class="col-sm-12">
+        @!component('../../components/form/inputEdit.edge',{
+        type:'text',
+        name:'Email',
+        value:null,
+        })
+      </div>
+      <div class="col-sm-12">
+        @!component('../../components/form/inputEdit.edge',{
+        type:'password',
+        name:'Password',
         })
       </div>
       <div class="form-check">
